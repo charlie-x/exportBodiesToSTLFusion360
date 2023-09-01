@@ -1,0 +1,10 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"script",
+	"author":	"charliex",
+	"description":	{
+		"":	"export bodies to individual STLs"
+	},
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}
