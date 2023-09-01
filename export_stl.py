@@ -1,5 +1,5 @@
 #Author- charliex
-#Description- export bodies to indiviual STLs
+#Description- export bodies to individual STLs
 
 # import the required libraries
 import adsk.core, adsk.fusion, adsk.cam, traceback, os
@@ -34,11 +34,23 @@ def run(context):
         if dialogResult == adsk.core.DialogResults.DialogOK:
             outputDirectory = folderDialog.folder
 
+
             # create the export manager
             exportMgr = adsk.fusion.ExportManager.cast(design.exportManager)
 
+            # prompt to include hidden bodies
+            result = ui.messageBox('do you want to include hidden bodies?', 'include hidden bodies', adsk.core.MessageBoxButtonTypes.YesNoCancelButtonType)
+
+            if result == adsk.core.DialogResults.DialogYes:
+                includeHidden = True
+            elif result == adsk.core.DialogResults.DialogNo:
+                includeHidden = False
+            else:
+                ui.messageBox('export cancelled')
+                return
+
             for body in bodies:
-                if body.isSolid:
+                if body.isSolid and (includeHidden or body.isVisible):
                     fileName = os.path.join(outputDirectory, '{}.stl'.format(body.name))
 
                     # create the STL export options
