@@ -4,8 +4,10 @@ script to save all bodies to individual stl files using body name, fusion360
 
 save to the plugins folder inside a export_stl folder such as
 
-For MAC 
+For MAC , yours will be different
+
 /Users/charlie/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Scripts/export_stl
+
 
 
 
