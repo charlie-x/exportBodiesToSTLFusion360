@@ -49,6 +49,25 @@ def run(context):
                 ui.messageBox('export cancelled')
                 return
 
+            # prompt for mesh refinement level
+            meshRefinementChoice = '1'
+            meshRefinementChoice,isCancelled = ui.inputBox('enter mesh refinement level:\n1: low\n2: medium\n3: high :', 'level', meshRefinementChoice)
+      
+            if isCancelled:
+                ui.messageBox('export cancelled')
+                return
+
+            # figure out the refinement  
+            if meshRefinementChoice == '1':
+                meshRefinementSetting = adsk.fusion.MeshRefinementSettings.MeshRefinementLow
+            elif meshRefinementChoice == '2':
+                meshRefinementSetting = adsk.fusion.MeshRefinementSettings.MeshRefinementMedium
+            elif meshRefinementChoice == '3':
+                meshRefinementSetting = adsk.fusion.MeshRefinementSettings.MeshRefinementHigh
+            else:
+                ui.messageBox('invalid selection. export cancelled')
+                return
+    
             for body in bodies:
                 if body.isSolid and (includeHidden or body.isVisible):
                     fileName = os.path.join(outputDirectory, '{}.stl'.format(body.name))
@@ -57,7 +76,7 @@ def run(context):
                     stlExportOptions = exportMgr.createSTLExportOptions(body)
 
                     # set refinement of STL
-                    stlExportOptions.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementMedium
+                    stlExportOptions.meshRefinement = meshRefinementSetting
 
                     # the filename to be export too
                     stlExportOptions.filename = fileName
@@ -71,4 +90,3 @@ def run(context):
     except:
         if ui:
             ui.messageBox('failed:\n{}'.format(traceback.format_exc()))
-
