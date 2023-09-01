@@ -2,7 +2,7 @@
 #Description- export bodies to individual STLs
 
 # import the required libraries
-import adsk.core, adsk.fusion, adsk.cam, traceback, os
+import adsk.core, adsk.fusion, os
 
 def run(context):
     ui = None
