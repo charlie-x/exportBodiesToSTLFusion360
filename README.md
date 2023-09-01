@@ -8,12 +8,7 @@ For MAC
 /Users/charlie/Library/Application Support/Autodesk/Autodesk Fusion 360/API/Scripts/export_stl
 
 
-change 
 
-                if body.isSolid:
-
-to
-
-                if body.isSolid and body.isVisible:
-
-if you don't want to export hidden bodies
+#changes
+  added option to export hidden bodies or not
+  
